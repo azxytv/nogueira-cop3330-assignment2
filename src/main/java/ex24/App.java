@@ -12,6 +12,7 @@ public class App
         System.out.print("Enter the two strings and I'll tell you if they are anagrams." );
         System.out.println("Enter the first string: " );
         String s1 = s.nextLine();
+
         System.out.println("Enter the second string: " );
         String s2 = s.nextLine();
 
