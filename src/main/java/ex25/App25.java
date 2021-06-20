@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  *  Copyright 2021 Adam Nogueira
  */
 
-class Main {
+class App25 {
     public static void main(String[] args) {
         JFrame jf= new JFrame("PASSWORD VALIDATOR");
         JLabel l,answer;
