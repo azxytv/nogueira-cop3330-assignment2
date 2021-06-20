@@ -1,6 +1,9 @@
 package ex40;
 import java.util.*;
-
+/*
+ *  UCF COP3330 Summer 2021 Assignment 2 Solution
+ *  Copyright 2021 Adam Nogueira
+ */
 public class App40 {
     public static void main(String[] args) {
         Record[] records = {
