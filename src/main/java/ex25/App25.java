@@ -1,41 +1,88 @@
 package ex25;
-import ex24.App;
-
-import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /*
  *  UCF COP3330 Summer 2021 Assignment 2 Solution
  *  Copyright 2021 Adam Nogueira
  */
-public class App25 {
+
+class Main {
     public static void main(String[] args) {
-        App25 example25 = new App25();
+        JFrame jf= new JFrame("PASSWORD VALIDATOR");
+        JLabel l,answer;
+        JTextField t;
+        JButton check,reset;
 
-        Scanner in = new Scanner(System.in);
-        System.out.print("What is your balance? ");
-        double balance = Double.parseDouble(in.next());
-        System.out.println("What is the APR on the card (as a percent)? ");
-        double dailyRate = Double.parseDouble(in.next()) / 36500;
-        System.out.println("What is the monthly payment you can make? ");
-        double MP = Double.parseDouble(in.next());
-        double totalMonths = App25.PaymentCalculator.calculateMonthsUntilPaidOff(balance, dailyRate, MP);
-
-        System.out.println("It will take you " + Math.round(totalMonths) + " months to pay off this card.");
+        l=new JLabel("Enter a Password");
+        answer=new JLabel("Result will be shown here");
+        t=new JTextField(20);
+        check=new JButton("Check Password");
+        reset=new JButton("Reset");
+        jf.add(l);
+        jf.add(t);
+        jf.add(check);
+        jf.add(reset);
+        jf.add(answer);
+        check.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String password=t.getText();
+                String result=passwordValidator(password);
+                answer.setText(result);
+                answer.setForeground(Color.red);
+            }
+        });
+        reset.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                t.setText("");
+                answer.setText("Result will be shown here");
+                answer.setForeground(Color.black);
+            }
+        });
+        jf.setSize(700,100);
+        jf.setLayout(new FlowLayout());
+        //f.pack();
+        jf.setVisible(true);
+        jf.setResizable(false);
+        jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
-
-    public static class PaymentCalculator {
-        public static double calculateMonthsUntilPaidOff(double bal, double dr, double months) {
-            double j = dr;
-            double temp = bal/months;
-            double temp1 = Math.pow((1+j),30);
-            double temp2 = Math.log(1+j);
-            double temp3 = Math.log(1 + temp *(1 - temp1));
-
-            int totalMonths = (int)Math.ceil((-1 * temp3) / (temp2*30));
-            return totalMonths;
+    public static String passwordValidator(String password){
+        int digits=0;
+        int symbols=0;
+        int letters=0;
+        String result="The password '"+password+"' is a ";
+        for(int i=0;i<password.length();i++){
+            if(Character.isDigit(password.charAt(i))){
+                digits++;
+            }
+            else if(Character.isLetter(password.charAt(i))){
+                letters++;
+            }
+            else{
+                symbols++;
+            }
         }
+        if(password.length()<8){
+            if(digits==password.length()){
+                result+="very weak password";
+            }
+            else if(letters==password.length()){
+                result+="weak password";
+            }
+        }
+        else{
+            if(letters!=0 && digits!=0 && symbols!=0){
+                result+="very strong password";
+            }
+            else if(letters!=0 && digits!=0){
+                result+="strong password";
+            }
 
+        }
+        return result;
     }
 }
-
-
 
